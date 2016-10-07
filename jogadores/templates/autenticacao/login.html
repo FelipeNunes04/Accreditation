@@ -1,0 +1,32 @@
+{% extends 'base_deslogada.html' %}
+
+{% block content_title %}
+Faça seu login para iniciar a seção
+{% endblock %}
+
+  {% block content %}
+    {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4><i class="fa fa-warning"></i>Aviso:</h4>
+          <p>Usuário e senha não correspondem!</p>
+        </div>
+    {% endif %}
+        <form method="post">{% csrf_token %}
+          <div class="form-group has-feedback">
+            <input id="id_username" name="username" type="text" class="form-control" placeholder="Usuário"/>
+            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          </div>
+          <div class="form-group has-feedback">
+            <input id="id_password" name="password" type="password" class="form-control" placeholder="Senha"/>
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+          </div>
+          <div class="row">
+            <div class="col-xs-4">
+              <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar</button>
+            </div><!-- /.col -->
+          </div>
+        </form>
+  {% endblock %}

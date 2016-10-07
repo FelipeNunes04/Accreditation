@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content_title %}Espectadores{% endblock %}
+{% block box_title %}Listar{% endblock %}
+
+{% block box_body %}
+<section>
+	<table class="table table-striped table-hover">
+		<thead>
+			<tr>
+				<th>Nome</th>
+				<th>Quentinha (1º/2º dia)</th>
+				<th>Presente (1º/2º dia)</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for e in object_list %}
+				<tr>
+					<td>{{ e.nome }}</td>
+					<td>{{ e.quentinha_dia1}}/{{e.quentinha_dia2 }}</td>
+					<td>{{ e.presente_dia1}}/{{e.presente_dia2 }}</td>
+					<td>
+					<a href="{% url 'update-espectador' e.pk %}">Editar</a>
+					<b>|</b>
+					<a href="{% url 'delete-espectador' e.pk %}">Deletar</a>
+					<td/>
+				</tr>
+				{% empty %}
+					<tr>
+						<td colspan ="4">
+							Não há espectadores cadastrados!
+						</td>
+					</tr>
+			{% endfor %}
+		</tbody>
+		<tfoot>
+			<th>Nome</th>
+			<th>Quentinha (1º/2º dia)</th>
+			<th>Presente (1º/2º dia)</th>
+		</tfoot>
+	</table>
+</section>
+<a href="{% url 'cadastrar-espectador' %}" class="btn btn-primary btn-flat">Novo Espectador</a>
+{% endblock	 %}

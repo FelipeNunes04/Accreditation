@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content_title %}Espectadores{% endblock %}
+{% block box_title %}Editar{% endblock %}
+
+{% block box_body %}
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+	{% for field in form %}
+		<div class="form-group">
+			{{ field.label_tag }}
+			{% if field.field.required == True %}
+				(Obrigatório)
+			{% endif %}
+			{{ field }}
+			{% for error in field.errors %}
+				<span class="help-inline text-Warning">{{ error }}</span>
+			{% endfor %}
+		</div>
+	{% endfor %}
+	<button type="submit" class="btn btn-primary btn-flat" >Salvar alterações</button>
+</form>
+<div style="margin: -34px 0 20px 150px;">
+	<a href="{% url 'listar-espectador' %}"><button class="btn btn-primary btn-flat">Cancelar</button></a>
+</div>
+{% endblock %}

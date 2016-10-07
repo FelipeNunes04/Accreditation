@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content_title %}Espectadores{% endblock %}
+{% block box_title %}Deletar{% endblock %}
+
+{% block box_body %}
+	<form method="post">
+		{% csrf_token %}
+		<p>Deseja deletar o espectador "{{ object.nome }}"?</p>
+		<button type="submit" class="btn btn-primary btn-flat">Confirmar</button>
+	</form>
+	<div style="margin: -34px 0 20px 150px;">
+		<a href="{% url 'listar-espectador' %}"><button class="btn btn-primary btn-flat">Cancelar</button></a>
+	</div>
+
+{% endblock %}
