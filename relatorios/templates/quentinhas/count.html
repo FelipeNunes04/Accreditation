@@ -22,7 +22,7 @@
 		<tr><th>Total de Quentinhas Pedidas:</th> <td>{{ num_total_quentinhas }}</td></tr>
 		<tr><th>Valor Arrecadado com a Venda:</th> <td>R${{ valor_total_venda }}</td></tr>
 		<tr><th>Valor gasto para Compra:</th> <td>R${{ valor_total_compra }}</td></tr>
-		<tr><th>Lucro com as vendas:</th> <td>R${{ valor_total_lucro }}</td></tr>
+		<tr><th>Lucro com as vendas:</th> <td>R${{ valor_total_lucro|floatformat }}</td></tr>
 	</table>
 </section>
 {% endblock	 %}

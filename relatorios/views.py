@@ -3,8 +3,8 @@ from django.contrib.auth.decorators import login_required
 from jogadores.models import Jogador
 from espectadores.models import Espectador
 
-preco_venda_quentinha = 10.0
-preco_compra_quentinha = 8.7
+preco_venda_quentinha = 10.00
+preco_compra_quentinha = 8.70
 
 @login_required
 def jogadores_credenciados(request):
