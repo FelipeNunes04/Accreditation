@@ -46,9 +46,16 @@ class JogadorUpdateView(LoginRequiredMixin, UpdateView):
 
 	def form_valid(self,form):
 		jogador = form.save(commit = False)
-		jogador.save()
-		messages.success(self.request, "Jogador atualizado com sucesso!")
-		return HttpResponseRedirect(self.get_success_url())
+		if jogador.quentinha_dia1=="Sim" and jogador.carne_dia1=="Nenhuma":
+			messages.error(self.request, "Por favor, selecione o tipo de carne da quentinha (1º dia)")
+			return self.render_to_response(self.get_context_data(form = form))
+		elif jogador.quentinha_dia2=='Sim' and jogador.carne_dia2=='Nenhuma':
+			messages.error(self.request, "Por favor, selecione o tipo de carne da quentinha (2º dia)")
+			return self.render_to_response(self.get_context_data(form = form))
+		else:
+			jogador.save()
+			messages.success(self.request, "Jogador cadastrado com sucesso!")
+			return HttpResponseRedirect(self.get_success_url())
 
 	def form_invalid(self,form):
 		messages.error(self.request, "Por favor, preencha corretamente os campos")

@@ -56,9 +56,16 @@ class EspectadorUpdateView(LoginRequiredMixin, UpdateView):
 
 	def form_valid(self,form):
 		espectador = form.save(commit = False)
-		espectador.save()
-		messages.success(self.request, "Espectador atualizado com sucesso!")
-		return HttpResponseRedirect(self.get_success_url())
+		if espectador.quentinha_dia1=='Sim' and espectador.carne_dia1=='Nenhuma':
+			messages.error(self.request, "Por favor, selecione o tipo de carne da quentinha (1º dia)")
+			return self.render_to_response(self.get_context_data(form = form))
+		elif espectador.quentinha_dia2=='Sim' and espectador.carne_dia2=='Nenhuma':
+			messages.error(self.request, "Por favor, selecione o tipo de carne da quentinha (2º dia)")
+			return self.render_to_response(self.get_context_data(form = form))
+		else:
+			espectador.save()
+			messages.success(self.request, "Espectador cadastrado com sucesso!")
+			return HttpResponseRedirect(self.get_success_url())
 
 	def form_invalid(self,form):
 		messages.error(self.request, "Por favor, preencha corretamente os campos")

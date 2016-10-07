@@ -4,7 +4,7 @@ from jogadores.models import Jogador
 from espectadores.models import Espectador
 
 preco_venda_quentinha = 10.00
-preco_compra_quentinha = 8.70
+preco_compra_quentinha = 8.50
 
 @login_required
 def jogadores_credenciados(request):
@@ -52,6 +52,7 @@ def jogadores_credenciados(request):
 
 @login_required
 def espectadores_credenciados(request):
+	espectadores_cadastrados = Espectador.objects.all()
 	espectadores_presentes_dia1 = Espectador.objects.filter(presente_dia1 = 'Sim')
 	espectadores_presentes_dia2 = Espectador.objects.filter(presente_dia2 = 'Sim')
 	
@@ -85,6 +86,7 @@ def espectadores_credenciados(request):
 	num_espectadores_presentes_dia1 = espectadores_quentinha_dia1.count()
 	num_espectadores_presentes_dia2 = espectadores_presentes_dia2.count()
 	num_espectadores_total = num_espectadores_presentes_dia1 + num_espectadores_presentes_dia2
+	num_espectadores_cadastrados = espectadores_cadastrados.count()
 
 	return render(request, 'espectadores_credenciados/count.html', {"num_espectadores_presentes_dia1":num_espectadores_presentes_dia1,
 	 "num_espectadores_presentes_dia2":num_espectadores_presentes_dia2,"num_espectadores_quentinha_dia1":num_espectadores_quentinha_dia1, 
@@ -93,7 +95,7 @@ def espectadores_credenciados(request):
 	 "num_espectadores_quentinha_dia1_linguica":num_espectadores_quentinha_dia1_linguica,"num_espectadores_quentinha_dia1_carne":num_espectadores_quentinha_dia1_carne,
 	 "num_espectadores_quentinha_dia1_galinha":num_espectadores_quentinha_dia1_galinha,"num_espectadores_quentinha_dia2_frango":num_espectadores_quentinha_dia2_frango,
 	 "num_espectadores_quentinha_dia2_linguica":num_espectadores_quentinha_dia2_linguica,"num_espectadores_quentinha_dia2_carne":num_espectadores_quentinha_dia2_carne,
-	 "num_espectadores_quentinha_dia2_galinha":num_espectadores_quentinha_dia2_galinha,
+	 "num_espectadores_quentinha_dia2_galinha":num_espectadores_quentinha_dia2_galinha,"num_espectadores_cadastrados": num_espectadores_cadastrados,
 	 })
 
 @login_required
@@ -183,6 +185,12 @@ def quentinhas(request):
 	num_total_quentinhas_dia2_carne = num_espectadores_quentinha_dia2_carne + num_jogadores_quentinha_dia2_carne
 	num_total_quentinhas_dia2_galinha = num_espectadores_quentinha_dia2_galinha + num_jogadores_quentinha_dia2_galinha
 	#preço da quentinha
+	valor_venda_dia1 = num_total_quentinhas_dia1 * preco_venda_quentinha
+	valor_compra_dia1 = num_total_quentinhas_dia1 * preco_compra_quentinha
+	valor_lucro_dia1 = valor_venda_dia1 - valor_compra_dia1
+	valor_venda_dia2 = num_total_quentinhas_dia2 * preco_venda_quentinha
+	valor_compra_dia2 = num_total_quentinhas_dia2 * preco_compra_quentinha
+	valor_lucro_dia2 = valor_venda_dia2 - valor_compra_dia2
 	valor_total_venda = num_total_quentinhas * preco_venda_quentinha
 	valor_total_compra =  num_total_quentinhas * preco_compra_quentinha
 	valor_total_lucro = valor_total_venda - valor_total_compra
@@ -195,5 +203,7 @@ def quentinhas(request):
 	 "num_total_quentinhas_dia2_carne":num_total_quentinhas_dia2_carne,"num_total_quentinhas_dia2_galinha":num_total_quentinhas_dia2_galinha,
 	 "num_total_quentinhas":num_total_quentinhas, "preco_venda_quentinha":preco_venda_quentinha,
 	 "preco_compra_quentinha":preco_compra_quentinha,"valor_total_venda":valor_total_venda,
-	 "valor_total_compra": valor_total_compra, "valor_total_lucro":valor_total_lucro
+	 "valor_total_compra": valor_total_compra, "valor_total_lucro":valor_total_lucro, "valor_venda_dia1":valor_venda_dia1,
+	 "valor_compra_dia1":valor_compra_dia1,"valor_venda_dia2":valor_venda_dia2,"valor_compra_dia2":valor_compra_dia2,
+	 "valor_lucro_dia2":valor_lucro_dia2,"valor_lucro_dia1":valor_lucro_dia1,
 	 })
