@@ -3,13 +3,11 @@ from django.views.generic import TemplateView
 from django.contrib import admin
 from django.contrib.auth.views import login,logout
 
-from espectadores.views import Home
-import jogadores
-import espectadores
+from desenvolvedores.views import Home
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^jogador/', include('jogadores.urls')),
-    url(r'^espectador/', include('espectadores.urls')),
+    url(r'^desenvolvedor/', include('desenvolvedores.urls')),
     url(r'^relatorio/', include('relatorios.urls')),
 
     url(r'^$', Home.as_view(), name='home'),
