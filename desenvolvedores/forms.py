@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from .models import *
+from desenvolvedores.models import *
 
 class DesenvolvedorModelForm(forms.ModelForm):
 	nome = forms.CharField(
